@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@450&display=swap" rel="stylesheet"> 
     <!--Stylesheet-->
     <style media="screen">
       *,
@@ -17,7 +18,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #080710;
+    background-color: #f5f5f5;
 }
 .background{
     width: 430px;
@@ -65,8 +66,8 @@ form{
     padding: 50px 35px;
 }
 form *{
-    font-family: 'Poppins',sans-serif;
-    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    color: #2a2929;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
@@ -75,7 +76,8 @@ form h3{
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
-    text-align: center;
+    text-align: center; 
+    color: #7456c0;
 }
 
 label{
@@ -88,7 +90,7 @@ input{
     display: block;
     height: 50px;
     width: 100%;
-    background-color: rgba(255,255,255,0.07);
+    background-color: rgba(66, 66, 66, 0.07);
     border-radius: 3px;
     padding: 0 10px;
     margin-top: 8px;
@@ -96,14 +98,14 @@ input{
     font-weight: 300;
 }
 ::placeholder{
-    color: #e5e5e5;
+    color: #aeaeae; 
 }
 button{
     margin-top: 50px;
     width: 100%;
-    background-color: #ffffff;
-    color: #080710;
-    padding: 15px 0;
+    background-color:#7456c0; 
+    color: #ffffff;
+    padding: 13px 0;
     font-size: 18px;
     font-weight: 600;
     border-radius: 5px;
@@ -139,10 +141,10 @@ button{
         <h3>Нэвтрэх хэсэг</h3>
         {% csrf_token %} 
         <label for="username">Хэрэглэгчийн нэр</label>
-        <input type="text" placeholder="Enter Username" id="username" name="username">
+        <input type="text" placeholder="Нэрээ оруулах" id="username" name="username">
 
         <label for="password">Нууц үг</label>
-        <input type="password" placeholder="Password" id="password" name="pass">
+        <input type="password" placeholder="Нууц үгээ оруулах" id="password" name="pass">
 
         <button type="submit">Нэвтрэх</button>
         <!-- <input type="button" value=""> -->
