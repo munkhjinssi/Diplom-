@@ -25,4 +25,73 @@ form .btn:hover{
     color: #ffff; 
     background-color: #7456c0; 
     border-color: #7456c0;
+} 
+nav { 
+    height:40px;  
+    background-color: #ffffff;  
+}   
+.navbar{ 
+    position: fixed;
+    top: 0;
+}
+nav .icons {   
+    position: absolute; 
+    right:10px; 
+    top:15px;
+}   
+#alarm{ 
+    border-radius: 4px; 
+} 
+#acc{ 
+    border-radius: 4px;
+}
+.Context h2{ 
+    font-family: 'Montserrat', sans-serif;  
+    position: absolute;     
+    top:18%; 
+    left:15%; 
+    width: 30%; 
+    text-align: left;     
+    color:#7456c0; 
+
+} 
+.Context p{ 
+    color: #626262; 
+    font-family: 'Montserrat', sans-serif;  
+    position: absolute; 
+    top:26%; 
+    left:15%; 
+    width: 30%; 
+    text-align: left;   
+}
+.img1{    
+    position: absolute; 
+    top: 8%; 
+    right:13%;  
+    width:600px; 
+    height:350px; 
+} 
+.Context{ 
+    display: inline-block;  
+} 
+.Dashboard h3{ 
+    position: absolute; 
+    top:55%;    
+    right:50%;  
+    font-weight: 300;
+} 
+.Dashboard .bi{  
+    color: #7456c0; 
+    position: absolute; 
+    top: 56%; 
+    right:64%; 
+} 
+#cards{  
+    position: absolute; 
+    top: 65%; 
+    width:55%;  
+    right:12%; 
+} 
+#cards .col{ 
+    width:300px;
 }
