@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User 
+from django.contrib import messages
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required  
 from django.contrib.auth import authenticate, login, logout
@@ -31,7 +32,7 @@ def LoginPage(request):
           login(request, user) 
           return redirect('home') 
       else:  
-          return HttpResponse("Хэрэглэгчийн нэр эсвэл нууц үг буруу байна!!!")
+          messages.error(request, "Нэвтрэх нэр, нууц үг буруу байна")
 
   return render(request, 'login.html')  
 

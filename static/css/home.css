@@ -25,41 +25,44 @@ form .btn:hover{
     color: #ffff; 
     background-color: #7456c0; 
     border-color: #7456c0;
-} 
-nav { 
-    height:40px;  
-    background-color: #ffffff;  
-}   
-.navbar{ 
-    position: fixed;
-    top: 0;
+}  
+form .btn:active{ 
+    background-color: #7456c0;
+}
+.Top{ 
+    height:45px;  
+    background-color: #ffffff;   
+    border-bottom: 1px solid #9c9c9c;  
+    z-index: 1; 
+    position: fixed; 
+    top:0; 
+    width: 100%; 
+}    
+nav form{   
+    position: absolute; 
+    right:30%; 
+             
 }
 nav .icons {   
+    display: inline-block; 
     position: absolute; 
-    right:10px; 
-    top:15px;
+    top:2px;  
+    right: 5px;
 }   
-#alarm{ 
-    border-radius: 4px; 
-} 
-#acc{ 
-    border-radius: 4px;
-}
 .Context h2{ 
     font-family: 'Montserrat', sans-serif;  
     position: absolute;     
-    top:18%; 
+    top:20%; 
     left:15%; 
     width: 30%; 
     text-align: left;     
     color:#7456c0; 
-
 } 
 .Context p{ 
     color: #626262; 
     font-family: 'Montserrat', sans-serif;  
     position: absolute; 
-    top:26%; 
+    top:25%; 
     left:15%; 
     width: 30%; 
     text-align: left;   
@@ -76,8 +79,8 @@ nav .icons {
 } 
 .Dashboard h3{ 
     position: absolute; 
-    top:55%;    
-    right:50%;  
+    top:55.5%;    
+    right:55%;  
     font-weight: 300;
 } 
 .Dashboard .bi{  
@@ -94,4 +97,53 @@ nav .icons {
 } 
 #cards .col{ 
     width:300px;
+}  
+.card-body .a{  
+    background-color: #7456c0;
+}
+#dropDownMenu{ 
+    display: none;
+} 
+.dropdown-menu{ 
+    position: relative; 
+    top:40px; 
+    right: 2px;
+} 
+.leftbar{   
+    position: relative; 
+    left:0;    
+    top:55%;  
+    width:30%;  
+    height: auto;      
+    overflow: auto; 
+    background-color: #ffffff;
+}  
+.leftbar ul{ 
+    display:flex; 
+    flex-direction: column;   
+} 
+.leftbar li{ 
+    display: block;  
+    margin:5px;  
+    margin-left:35%; 
+    padding-left:5%; 
+    padding-top:2%; 
+    width:60%;  
+    height: 40px; 
+    border-radius: 5px;
+} 
+.leftbar li:hover{ 
+    background-color: rgb(231, 224, 237);   
+    transition: background-color 0.2s;
+}  
+#divider:hover{  
+    background-color: #ffffff; 
+} 
+#divider hr{  
+    color:black; 
+} 
+.leftbar .bi{ 
+    color:silver; 
+    margin-right:10px;   
+    margin-bottom: 3px;
 }

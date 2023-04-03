@@ -7,7 +7,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@450&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@450&display=swap" rel="stylesheet">  
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"
+    />
+    <!-- Default theme -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"
+    />
     <!--Stylesheet-->
     <style media="screen">
       *,
@@ -153,6 +162,13 @@ button{
           <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
         </div> -->
         <a href="{% url 'register' %}" >Бүртгэл үүсгэх бол энд дарна уу</a>
-    </form>
-</body>
+    </form> 
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    {% for msg in messages %}
+    <script>
+      alertify.set("notifier", "position", "top-center");
+      alertify.error("{{msg}}");
+    </script> 
+    {% endfor%}
+</body> 
 </html>
