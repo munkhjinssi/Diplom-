@@ -1,0 +1,39 @@
+.mapImage{ 
+    position: absolute; 
+    top: 8%; 
+    right:13%;  
+    width:700px; 
+    height:350px; 
+    z-index: 1;
+}
+.Name{  
+    font-family: 'Montserrat', sans-serif; 
+    position: absolute; 
+    top:56%; 
+    right: 42%; 
+    font-weight: 300;  
+    display: block; 
+    border-radius: 5px;    
+} 
+.Body{ 
+    position: absolute; 
+    top:65%; 
+    left:33%; 
+    width: 60%; 
+    height: auto; 
+    background-color: rgb(231, 224, 237); 
+    border-radius: 5px; 
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);
+} 
+.Body form{ 
+   margin-top: 5%; 
+   margin-left:15%; 
+   margin-right: 15%;
+} 
+.Body input{ 
+    border-radius:20px;
+} 
+.Body .btn{ 
+    color: #fff; 
+    background-color: blueviolet;
+}

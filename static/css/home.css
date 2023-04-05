@@ -1,13 +1,18 @@
+.logo{ 
+    width:30px; 
+    height: 28px;
+}
 li{ 
     text-decoration: none;
     list-style-type: none; 
     display: block; 
     margin-left: 10px;
-    margin-right: 10px;  
+    margin-right: 10px;   
 } 
 li a { 
     color: black; 
-    text-decoration: none;
+    text-decoration: none; 
+    font-family: 'Montserrat', sans-serif;
 } 
 ul { 
     display: flex; 
@@ -18,8 +23,8 @@ a:hover{
 } 
 form .btn{ 
     border-color:#7456c0;   
-    color: #7456c0; 
-
+    color: #7456c0;  
+    font-family: 'Montserrat', sans-serif;
 } 
 form .btn:hover{ 
     color: #ffff; 
@@ -40,8 +45,8 @@ form .btn:active{
 }    
 nav form{   
     position: absolute; 
-    right:30%; 
-             
+    right:30%;  
+    font-family: 'Montserrat', sans-serif;
 }
 nav .icons {   
     display: inline-block; 
@@ -64,8 +69,8 @@ nav .icons {
     position: absolute; 
     top:25%; 
     left:15%; 
-    width: 30%; 
-    text-align: left;   
+    width: 25%; 
+    text-align: center;   
 }
 .img1{    
     position: absolute; 
@@ -77,40 +82,17 @@ nav .icons {
 .Context{ 
     display: inline-block;  
 } 
-.Dashboard h3{ 
-    position: absolute; 
-    top:55.5%;    
-    right:55%;  
-    font-weight: 300;
-} 
-.Dashboard .bi{  
-    color: #7456c0; 
-    position: absolute; 
-    top: 56%; 
-    right:64%; 
-} 
-#cards{  
-    position: absolute; 
-    top: 65%; 
-    width:55%;  
-    right:12%; 
-} 
-#cards .col{ 
-    width:300px;
-}  
-.card-body .a{  
-    background-color: #7456c0;
-}
 #dropDownMenu{ 
     display: none;
 } 
 .dropdown-menu{ 
     position: relative; 
     top:40px; 
-    right: 2px;
+    right: 2px; 
+    font-family: 'Montserrat', sans-serif;
 } 
 .leftbar{   
-    position: relative; 
+    position: absolute; 
     left:0;    
     top:55%;  
     width:30%;  
@@ -122,7 +104,8 @@ nav .icons {
     display:flex; 
     flex-direction: column;   
 } 
-.leftbar li{ 
+.leftbar li{  
+    font-family: 'Montserrat', sans-serif;
     display: block;  
     margin:5px;  
     margin-left:35%; 
@@ -130,14 +113,16 @@ nav .icons {
     padding-top:2%; 
     width:60%;  
     height: 40px; 
-    border-radius: 5px;
+    border-radius: 5px; 
 } 
 .leftbar li:hover{ 
     background-color: rgb(231, 224, 237);   
-    transition: background-color 0.2s;
+    transition: background-color 0.2s; 
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);
 }  
 #divider:hover{  
-    background-color: #ffffff; 
+    background-color: #ffffff;  
+    box-shadow: none;
 } 
 #divider hr{  
     color:black; 
@@ -146,4 +131,7 @@ nav .icons {
     color:silver; 
     margin-right:10px;   
     margin-bottom: 3px;
+} 
+#dashka{ 
+    color:#7456c0;
 }

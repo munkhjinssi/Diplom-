@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 
 @login_required(login_url='login') 
 def home(request):
-  return render(request, 'home.html')  
+  return render(request, 'Dashboard.html')  
 
 def register(request):   
   if request.method =='POST':  
@@ -38,4 +38,9 @@ def LoginPage(request):
 
 def Logout(request): 
   logout(request) 
-  return redirect('login')
+  return redirect('login') 
+
+@login_required(login_url='login') 
+def Ipgeo(request):  
+   return render(request, 'ipgeo.html') 
+

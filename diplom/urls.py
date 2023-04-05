@@ -23,5 +23,6 @@ urlpatterns = [
     path('home/', views.home, name="home"),  
     path('register/', views.register, name="register"), 
     path('', views.LoginPage, name="login"), 
-    path('logout', views.Logout, name='logout')
+    path('logout', views.Logout, name='logout'),  
+    path('ipgeo', views.Ipgeo, name='ipgeo')
 ]

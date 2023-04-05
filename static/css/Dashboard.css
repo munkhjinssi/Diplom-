@@ -1,0 +1,19 @@
+.Dashboard h2{ 
+    position: absolute; 
+    top:55.5%;    
+    right:50%;  
+    font-weight: 300; 
+    font-family: 'Montserrat', sans-serif;
+} 
+#cards{  
+    position: absolute; 
+    top: 65%; 
+    width:55%;  
+    right:12%; 
+} 
+#cards .col{ 
+    width:300px;
+}  
+.card-body .a{  
+    background-color: #7456c0;
+}
