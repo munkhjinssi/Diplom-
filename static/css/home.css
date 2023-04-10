@@ -1,13 +1,14 @@
 .logo{ 
     width:30px; 
-    height: 28px;
+    height: 28px; 
 }
 li{ 
     text-decoration: none;
     list-style-type: none; 
     display: block; 
     margin-left: 10px;
-    margin-right: 10px;   
+    margin-right: 10px;    
+    margin-top:7px;   
 } 
 li a { 
     color: black; 
@@ -16,11 +17,11 @@ li a {
 } 
 ul { 
     display: flex; 
-    flex-direction: row;  
+    flex-direction: row;   
 } 
 a:hover{ 
     color: #626262;  
-} 
+}  
 form .btn{ 
     border-color:#7456c0;   
     color: #7456c0;  
@@ -35,10 +36,10 @@ form .btn:active{
     background-color: #7456c0;
 }
 .Top{ 
-    height:45px;  
+    height: 60px;  
     background-color: #ffffff;   
     border-bottom: 1px solid #9c9c9c;  
-    z-index: 1; 
+    z-index: 2; 
     position: fixed; 
     top:0; 
     width: 100%; 
@@ -46,12 +47,13 @@ form .btn:active{
 nav form{   
     position: absolute; 
     right:30%;  
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif; 
+    margin-top:7px;
 }
 nav .icons {   
     display: inline-block; 
     position: absolute; 
-    top:2px;  
+    top: 7px;  
     right: 5px;
 }   
 .Context h2{ 
@@ -134,4 +136,7 @@ nav .icons {
 } 
 #dashka{ 
     color:#7456c0;
+} 
+footer{ 
+    height: 100px;
 }

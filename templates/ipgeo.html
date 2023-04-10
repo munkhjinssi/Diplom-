@@ -1,5 +1,5 @@
-{% load static %} 
-{% include 'home.html' %}  
+{% load static %}  
+{% include 'home.html' %} 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
 <link rel='stylesheet' href="{% static 'css/ipgeo.css' %}"> 
@@ -11,8 +11,93 @@
     <h2>IP хаягаар байршил тогтоох</h2>      
 </div>   
 <div class="Body">    
-    <form class="d-flex" role="search"> 
-        <input class="form-control me-2" type="search" placeholder="IP хаяг оруулна уу" aria-label="Search">
-        <button class="btn btn-primary" type="submit">Шалгах</button>
-    </form> 
-</div>  
+    <form class="d-flex" role="search" method="POST">  
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="{{ data.query}}" aria-label="Search" name="Theip">
+        <button class="btn btn-primary" type="submit" id="Scan">Шалгах</button>
+    </form>   
+    <div class="Datagrid" id="ipgeo"> 
+    <table class="table table-10sm"> 
+        <thead> 
+            <th scope="col"></th>
+            <th scope="col">Параметр</th>   
+            <th scope="col">Мэдээлэл</th> 
+        </thead>  
+        <tbody class="table-group-divider">  
+            <tr>  
+                <th scope="row">1</th>  
+                <td>IP хаяг</td>  
+                <td>{{ data.query}}</td>  
+            <tr/>   
+            <tr>  
+                <th scope="row">2</th>  
+                <td>Статус</td> 
+                <td>{{ data.status}}</td> 
+            </tr> 
+            <tr>  
+                <th scope="row">3</th>  
+                <td>Улс</td> 
+                <td>{{ data.country}}</td> 
+            </tr> 
+            <tr>  
+                <th scope="row">4</th>  
+                <td>Улсын код</td> 
+                <td>{{ data.countryCode}}</td> 
+            </tr>   
+            <tr>  
+                <th scope="row">5</th>  
+                <td>Бүс</td> 
+                <td>{{ data.region}}</td> 
+            </tr>  
+            <tr>  
+                <th scope="row">6</th>  
+                <td>Бүсийн нэр</td> 
+                <td>{{data.regionName}}</td> 
+            </tr>  
+            <tr>  
+                <th scope="row">7</th>  
+                <td>Хот</td> 
+                <td>{{data.city}}</td> 
+            </tr>    
+            <tr>  
+                <th scope="row">8</th>  
+                <td>Зип</td> 
+                <td>{{ data.zip}}</td> 
+            </tr>  
+            <tr>  
+                <th scope="row">9</th>  
+                <td>Өргөрөг</td> 
+                <td>{{data.lat}}</td> 
+            </tr>  
+            <tr>  
+                <th scope="row">10</th>  
+                <td>Уртраг</td> 
+                <td>{{data.lon}}</td> 
+            </tr>      
+            <tr>  
+                <th scope="row">11</th>  
+                <td>Цагийн бүс</td> 
+                <td>{{data.timezone}}</td> 
+            </tr>  
+            <tr>  
+                <th scope="row">12</th>  
+                <td>ISP</td> 
+                <td>{{data.isp}}</td> 
+            </tr>  
+            <tr>  
+                <th scope="row">13</th>  
+                <td>org</td> 
+                <td>{{data.org}}</td> 
+            </tr>  
+            <tr>  
+                <th scope="row">14</th>  
+                <td>Прокси</td> 
+                <td>{{data.proxy}}</td> 
+            </tr>  
+        </tbody>  
+    </table>  
+  </div> 
+</div>    
+
+  
+

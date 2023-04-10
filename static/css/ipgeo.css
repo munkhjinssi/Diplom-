@@ -23,7 +23,7 @@
     height: auto; 
     background-color: rgb(231, 224, 237); 
     border-radius: 5px; 
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);  
 } 
 .Body form{ 
    margin-top: 5%; 
@@ -31,9 +31,23 @@
    margin-right: 15%;
 } 
 .Body input{ 
-    border-radius:20px;
+    border-radius:20px; 
+    font-family: 'Montserrat', sans-serif;
 } 
 .Body .btn{ 
     color: #fff; 
     background-color: blueviolet;
+} 
+.Datagrid{   
+    margin-top:5%; 
+    margin-left:10%; 
+    margin-right:10%;  
+    margin-bottom:5%;  
+    font-family: 'Montserrat', sans-serif; 
+} 
+.Datagrid th{ 
+    font-weight: bolder;
+} 
+.Datagrid td{ 
+    color: #626262; 
 }
