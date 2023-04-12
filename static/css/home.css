@@ -19,7 +19,7 @@ ul {
     display: flex; 
     flex-direction: row;   
 } 
-a:hover{ 
+nav a:hover{ 
     color: #626262;  
 }  
 form .btn{ 
@@ -93,15 +93,20 @@ nav .icons {
     right: 2px; 
     font-family: 'Montserrat', sans-serif;
 } 
-.leftbar{   
+.leftbar{    
     position: absolute; 
-    left:0;    
-    top:55%;  
-    width:30%;  
-    height: auto;      
-    overflow: auto; 
+    top:56%;   
+    left:0; 
+    width: 30%; 
+    height: auto; 
     background-color: #ffffff;
-}  
+} 
+.sticky{ 
+    position: fixed; 
+    top:60px;  
+    width:30%; 
+    left:0; 
+}   
 .leftbar ul{ 
     display:flex; 
     flex-direction: column;   
@@ -115,10 +120,10 @@ nav .icons {
     padding-top:2%; 
     width:60%;  
     height: 40px; 
-    border-radius: 5px; 
+    border-radius: 5px;  
 } 
 .leftbar li:hover{ 
-    background-color: rgb(231, 224, 237);   
+    background-color: rgb(242, 238, 247);
     transition: background-color 0.2s; 
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);
 }  
@@ -137,6 +142,3 @@ nav .icons {
 #dashka{ 
     color:#7456c0;
 } 
-footer{ 
-    height: 100px;
-}

@@ -1,5 +1,6 @@
 {% load static %}  
-{% include 'home.html' %} 
+{% include 'home.html' %}  
+<title>IP geolocation</title> 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
 <link rel='stylesheet' href="{% static 'css/ipgeo.css' %}"> 
@@ -17,90 +18,80 @@
         <button class="btn btn-primary" type="submit" id="Scan">Шалгах</button>
     </form>   
     <div class="Datagrid" id="ipgeo"> 
-    <table class="table table-10sm"> 
-        <thead> 
-            <th scope="col"></th>
+    <table> 
+        <thead>
             <th scope="col">Параметр</th>   
             <th scope="col">Мэдээлэл</th> 
         </thead>  
-        <tbody class="table-group-divider">  
-            <tr>  
-                <th scope="row">1</th>  
+        <tbody>  
+            <tr>   
                 <td>IP хаяг</td>  
                 <td>{{ data.query}}</td>  
             <tr/>   
-            <tr>  
-                <th scope="row">2</th>  
+            <tr>    
                 <td>Статус</td> 
                 <td>{{ data.status}}</td> 
             </tr> 
             <tr>  
-                <th scope="row">3</th>  
                 <td>Улс</td> 
                 <td>{{ data.country}}</td> 
             </tr> 
             <tr>  
-                <th scope="row">4</th>  
                 <td>Улсын код</td> 
                 <td>{{ data.countryCode}}</td> 
             </tr>   
             <tr>  
-                <th scope="row">5</th>  
                 <td>Бүс</td> 
                 <td>{{ data.region}}</td> 
             </tr>  
             <tr>  
-                <th scope="row">6</th>  
                 <td>Бүсийн нэр</td> 
                 <td>{{data.regionName}}</td> 
             </tr>  
             <tr>  
-                <th scope="row">7</th>  
                 <td>Хот</td> 
                 <td>{{data.city}}</td> 
             </tr>    
             <tr>  
-                <th scope="row">8</th>  
                 <td>Зип</td> 
                 <td>{{ data.zip}}</td> 
             </tr>  
-            <tr>  
-                <th scope="row">9</th>  
+            <tr>   
                 <td>Өргөрөг</td> 
                 <td>{{data.lat}}</td> 
             </tr>  
             <tr>  
-                <th scope="row">10</th>  
                 <td>Уртраг</td> 
                 <td>{{data.lon}}</td> 
             </tr>      
             <tr>  
-                <th scope="row">11</th>  
                 <td>Цагийн бүс</td> 
                 <td>{{data.timezone}}</td> 
             </tr>  
             <tr>  
-                <th scope="row">12</th>  
                 <td>ISP</td> 
                 <td>{{data.isp}}</td> 
             </tr>  
             <tr>  
-                <th scope="row">13</th>  
                 <td>org</td> 
                 <td>{{data.org}}</td> 
             </tr>  
-            <tr>  
-                <th scope="row">14</th>  
+            <tr>    
                 <td>as дугаар</td> 
                 <td>{{data.as}}</td> 
             </tr>    
         </tbody>  
     </table>  
   </div>  
-  <div style="width:100%;height:400px;position:absolute;top:800px;box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);">
+  <div style="width:100%;height:400px;position:absolute;margin-top:5%;box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);">
     {{ map | safe }} 
-  </div>
-</div>    
+  </div>  
+</div>       
+<div class="footer" > 
+    <img src="{% static 'img/logo.png' %}" alt="logo" class="logoFooter">
+    <h3>@copyright 2023 Munkhjin's thesis</h3> 
+</div>  
+  
 
   
 
