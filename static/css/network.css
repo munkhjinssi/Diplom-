@@ -1,0 +1,24 @@
+.Name{  
+    font-family: 'Montserrat', sans-serif; 
+    position: absolute; 
+    top:56%; 
+    right: 39%; 
+    font-weight: 300;  
+    display: block; 
+    border-radius: 5px;    
+}  
+.form{ 
+    position:absolute; 
+    top:65%;  
+    left:38%;  
+    border: 1px solid #c3c3c3; 
+    border-radius: 4px; 
+    padding:30px;  
+    width:45%;  
+}      
+#Scan {    
+    margin-left:45%;
+    margin-top:25px; 
+    color: #fff; 
+    background-color: blueviolet;
+}

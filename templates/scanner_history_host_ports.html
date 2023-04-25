@@ -1,0 +1,56 @@
+{% extends "base_bootstrap.html" %}
+
+{% block content %}
+<div style="box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24); padding:1em;background-color: rgb(242, 238, 247);width:1130px"> 
+<p>
+  <a href="{% url 'host_list' scanner_history_id %}" class="btn" id="btn-back">Буцах</a>
+</p>
+
+<p>
+  <strong>Хостын хаяг: </strong> {{ host.IP }}
+</p>
+<p>
+  <strong>Mac хаяг: </strong> {{ host.mac_address }}
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Protocol</th>
+      <th scope="col">Port id</th>
+      <th scope="col">State</th>
+      <th scope="col">Reason</th>
+      <th scope="col">Reason ttl</th>
+      <th scope="col">Created on</th>
+      <th scope="col">Port service name</th>
+      <th scope="col">Port service product</th>
+      <th scope="col">Port service extra info</th>
+      <th scope="col">Port service hostname</th>
+      <th scope="col">Port service operative system type</th>
+      <th scope="col">Port service method</th>
+      <th scope="col">Port service conf</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for port in ports %}
+    <tr>
+      <th scope="row">{{ port.port_id }}</th>
+      <td>{{ port.port_name }}</td>
+      <td>{{ port.port_accuracy }}</td>
+      <td>{{ port.port_state }}</td>
+      <td>{{ port.port_reason }}</td>
+      <td>{{ port.port_reason_ttl }}</td>
+      <td>{{ port.port_created_on }}</td>
+      <td>{{ port.port_service_name }}</td>
+      <td>{{ port.port_service_product }}</td>
+      <td>{{ port.port_service_extra_info }}</td>
+      <td>{{ port.port_service_hostname }}</td>
+      <td>{{ port.port_service_operative_system_type }}</td>
+      <td>{{ port.port_service_method }}</td>
+      <td>{{ port.port_service_conf }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div> 
+{% endblock %}
