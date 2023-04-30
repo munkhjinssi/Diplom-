@@ -120,7 +120,7 @@ class ScannerView(View, NmapScanner, ScapyScanner):
             response['success'] = True
 
         return HttpResponse(json.dumps(response), content_type="application/json")
-        # return redirect(reverse('network_scanner:form_scanner_view'))
+        
 
 class ScannerHistoryListView(ListView):
 
@@ -264,5 +264,8 @@ class PortListView(ListView):
             'scanner_history_id': scanner_history_id
         }
 
-        return render(request, self.template_name, context)
+        return render(request, self.template_name, context) 
+ 
+def Domain(request): 
+    return render(request, 'domain.html')
 

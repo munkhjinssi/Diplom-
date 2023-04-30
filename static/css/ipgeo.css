@@ -1,11 +1,4 @@
-.mapImage{ 
-    position: absolute; 
-    top: 8%; 
-    right:13%;  
-    width:700px; 
-    height:350px; 
-    z-index: 1;
-}
+
 .Name{  
     font-family: 'Montserrat', sans-serif; 
     position: absolute; 
@@ -79,12 +72,12 @@ body {
   } 
 .footer{ 
   height: 90px;  
-  width:80%; 
+  width:90%; 
   position: absolute; 
   top:2300px;   
   background-color:#fff;  
-  border-bottom: 1px solid #9c9c9c; 
-  left:10%; 
+  border-top: 1px solid #9c9c9c; 
+  left:5%; 
 }    
 .footer h3{   
   font-weight: 100; 
@@ -94,7 +87,8 @@ body {
   font-size: 18px;
 } 
 .logoFooter{  
-  position: absolute; 
+  position: absolute;  
+  margin-top: 5px;
   left:48%; 
   width: 50px; 
   height:auto;  

@@ -25,9 +25,6 @@ class NmapScanner(object):
 
         scanner_history.save()
 
-        # Put IPs inside a list
-        # This will enable the access to the objects inside each nested dictionary in scanner_result dictionary
-
         IPList = list(scanner_result)
 
         for IP in IPList:
@@ -53,7 +50,7 @@ class NmapScanner(object):
 
             host, created = Host.objects.get_or_create(**host_data)
 
-            # Add host to scanner history (many to many relation)
+            
             scanner_history.hosts.add(host)
 
             if "osmatch" in scanner_result[IP]:
@@ -151,7 +148,7 @@ class ScapyScanner(object):
         Extract data from arping response, source:
         https://stackoverflow.com/a/32805335/9655579
         """
-        # Perform scan (scapy)
+      
         answered, unanswered = arping(self.target)
 
         scanner_history = ScannerHistory(
@@ -171,8 +168,7 @@ class ScapyScanner(object):
                 IP=IP,
                 mac_address=mac_address
             )
-
-            # Add host to scanner history (many to many relation)
+    
             scanner_history.hosts.add(host)
 
         return scanner_history
