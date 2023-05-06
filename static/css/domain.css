@@ -6,4 +6,92 @@
     font-weight: 300;  
     display: block; 
     border-radius: 5px;    
+}  
+.body{  
+    font-family: 'Montserrat', sans-serif; 
+    position: absolute;   
+    top:65%; 
+    left:33%; 
+    width: 60%; 
+    height: auto; 
+    border-radius: 5px; 
+}  
+.body form{ 
+    margin-left:15%; 
+    margin-right: 15%; 
+    margin-bottom:2%; 
+ } 
+ .body input{ 
+     border-radius:20px; 
+     font-family: 'Montserrat', sans-serif; 
+     border-color: blueviolet;
+ } 
+ .body .btn{ 
+     color: #fff; 
+     background-color: blueviolet;
+ } 
+.tabless{ 
+    padding:2em;   
+    position: absolute;
+    top:70%;  
+    left:33%;  
+    width:60%; 
+}  
+.tabless h3{ 
+    margin-top:8px; 
+    text-align: left;  
+    font-family: 'Montserrat', sans-serif;
+}   
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);  
 } 
+.styled-table thead tr {
+    background-color: blueviolet;
+    color:#fff;
+    text-align: left; 
+    text-transform: uppercase;  
+    font-weight: bold;  
+} 
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px; 
+    font-size: 18px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+} 
+.styled-table tbody tr:hover{ 
+    background-color:#d6d5d5;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid blueviolet;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}  
+
+#saveDomain{ 
+    font-family:'Montserrat', sans-serif;  
+    background-color:  rgb(242, 238, 247); 
+    color: Light black; 
+} 
+#saveDomain:hover{  
+    background-color: #fff; 
+
+}
+#saveDomain svg{   
+    margin-left: 5px;
+
+
+}

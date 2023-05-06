@@ -104,13 +104,6 @@ nav .icons {
     display: none;
 }
 
-.dropdown-menu {
-    position: relative;
-    top: 40px;
-    right: 2px;
-    font-family: 'Montserrat', sans-serif;
-}
-
 .leftbar {
     position: absolute;
     top: 56%;
@@ -167,9 +160,7 @@ nav .icons {
 
 #dashka {
     color: #7456c0;
-}
-
-
+} 
 
 *{
     margin: 0;
@@ -180,7 +171,8 @@ nav .icons {
     width: 100%;
     height: 500px;
     background: #7456c0;
-    overflow: hidden;
+    overflow: hidden; 
+    z-index: -1;
   }
   section .air{
     position: absolute;

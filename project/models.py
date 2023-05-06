@@ -210,5 +210,13 @@ class ScannerHistory(models.Model):
     )
 
     class Meta:
-        ordering = ['-id']
- 
+        ordering = ['-id']  
+
+# class Domain(models.Model): 
+     
+    # domain_name=models.CharField(max_length=255, unique=True) 
+    # created_at = models.DateTimeFIeld(auto_now_add=True)  
+    
+      
+   # class Meta:  
+#     db_table = 'domain_lookup'

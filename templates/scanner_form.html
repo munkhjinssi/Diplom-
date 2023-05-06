@@ -46,7 +46,7 @@
 <p>
     <a href="{% url 'scanner_type' 'FS' %}">Хурдан шалгалтын хариуг харах</a>
 </p> 
-</div>  
+</div>   
 <!--https://stackoverflow.com/questions/1960240/jquery-ajax-submit-form-->
 <!--https://django-crispy-forms.readthedocs.io/en/latest/crispy_tag_forms.html#ajax-validation-recipe-->
 <script type="text/javascript">
@@ -63,7 +63,7 @@
             header: {'X-CSRFToken': '{% csrf_token %}'},
             beforeSend: function () {
                 //https://getbootstrap.com/docs/4.4/components/spinners/
-                $('#spinner').html('<div class="d-flex align-items-center"><strong>Шалгалт хийгдэж байгаа тул түр хүлээнэ үү...</strong><div class="spinner-border" role="status" aria-hidden="true" style="width: 3rem; height: 3rem; color:#6495ED;position:absolute; margin-left:40%;margin-bottom:5%"></div></div>')
+                $('#spinner').html('<div class="d-flex align-items-center"><div style="background-color:#fff; width:100%; height:100%; position:absolute;left:5px;top:10px"><iframe src="https://giphy.com/embed/DqPBaGDw5PQMcfEzzM" style="margin-left:45%;margin-top:15%" width="100" height="100" frameBorder="0" allowFullScreen></div></div>')
             },
             success: function(data) {
                 if (!(data['success'])) {
@@ -76,7 +76,7 @@
                 }
             },
             complete: function () {
-                $('#spinner').empty(); 
+                $('#spinner').empty();  
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.responseText);

@@ -23,11 +23,11 @@ from .models import (
 from django.urls import reverse_lazy, reverse, resolve
 from django.views import View
 
-from .scanners import NmapScanner, ScapyScanner
+from .scanners import * 
 
 from django.db.models import F
 
-import json
+import json, whois  
 
 @login_required(login_url='login') 
 def home(request):
@@ -119,7 +119,7 @@ class ScannerView(View, NmapScanner, ScapyScanner):
             self.perform_full_scan_and_save(request.POST['target'])
             response['success'] = True
 
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        return HttpResponse(json.dumps(response), content_type="application/json")  
         
 
 class ScannerHistoryListView(ListView):
@@ -134,7 +134,7 @@ class ScannerHistoryListView(ListView):
         context = {
             'scanner_history' : scanner_history
         }
-        return render(request, self.template_name, context)
+        return render(request, self.template_name, context) 
 
 class HostListView(ListView):
 
@@ -150,8 +150,9 @@ class HostListView(ListView):
         context = {
             'hosts' : hosts,
             'scanner_history': scanner_history
-        }
-        return render(request, self.template_name, context)
+        } 
+        return render(request, self.template_name, context) 
+     
 
 class OperativeSystemMatchListView(ListView):
 
@@ -264,8 +265,25 @@ class PortListView(ListView):
             'scanner_history_id': scanner_history_id
         }
 
-        return render(request, self.template_name, context) 
+        return render(request, self.template_name, context)  
  
-def Domain(request): 
-    return render(request, 'domain.html')
+def delete(request, id):   
+    deleting_model = ScannerHistory.objects.get(id=id)
+    if request.method == 'POST':       
+       deleting_model.delete()
+    return redirect(reverse('scanner_type', args=[id]))  
+ 
+def Domain(request):
+    if request.method == 'POST':
+        domain = request.POST.get('domain_name')
+        result = whois.whois(domain)
+        context = {
+            'domain': domain,
+            'result': result
+        }
+        return render(request, 'domain.html', context)
+    else:
+        return render(request, 'domain.html')
+
+ 
 

@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
 <link rel='stylesheet' href="{% static 'css/ipgeo.css' %}"> 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@450&display=swap" rel="stylesheet">   
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@450&display=swap" rel="stylesheet">     
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> 
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> 
 <div class="Name">  
     <h2>IP хаягаар байршил тогтоох</h2>      
 </div>   
@@ -15,10 +17,10 @@
         <button class="btn btn-primary" type="submit" id="Scan">Шалгах</button>
     </form>   
     <div class="Datagrid" id="ipgeo"> 
-    <table> 
+    <table class="table table-striped" id="example"> 
         <thead>
-            <th scope="col">Параметр</th>   
-            <th scope="col">Мэдээлэл</th> 
+            <th scope="col">Field</th>   
+            <th scope="col">info</th> 
         </thead>  
         <tbody>  
             <tr>   
@@ -87,7 +89,13 @@
 <div class="footer" > 
     <img src="{% static 'img/logo.png' %}" alt="logo" class="logoFooter">
     <h3>@copyright 2023 Munkhjin's thesis</h3> 
-</div>  
+</div>   
+<script> 
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script> 
+
   
 
   
