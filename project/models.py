@@ -212,11 +212,48 @@ class ScannerHistory(models.Model):
     class Meta:
         ordering = ['-id']  
 
-# class Domain(models.Model): 
+class Whois(models.Model): 
+    domain_name = models.CharField(max_length=255) 
+    registrar = models.CharField(max_length=255,blank=True, null=True)   
+    whois_server = models.CharField(max_length=255, blank=True, null=True)  
+    referral_url = models.URLField(max_length=50,blank=True,null=True)
+    name_server = models.TextField(blank=True,null=True)
+    status = models.TextField(blank=True, null=True) 
+    emails = models.EmailField(max_length=255, null=True)
+    dnssec = models.CharField(max_length=255, blank=True, null=True) 
+    name = models.CharField(max_length=255, blank=True, null=True) 
+    org = models.CharField(max_length=255, blank=True, null=True) 
+    address = models.TextField(blank=True, null=True) 
+    city = models.CharField(max_length=50,blank=True, null=True) 
+    state = models.CharField(max_length=50, blank=True, null=True) 
+    registrant_postal_code = models.IntegerField(blank=True, null=True) 
+    country = models.CharField(max_length=100,blank=True, null=True)
+    created_date = models.DateTimeField(blank = True, null=True)  
+    expiration_date = models.DateTimeField(blank=True, null=True)
+    updated_date = models.DateTimeField(blank=True, null=True)   
      
-    # domain_name=models.CharField(max_length=255, unique=True) 
-    # created_at = models.DateTimeFIeld(auto_now_add=True)  
+    def __str__ (self):    
+        return self.domain_name  
     
-      
-   # class Meta:  
-#     db_table = 'domain_lookup'
+class IPData(models.Model):
+    ip = models.CharField(max_length=45)
+    status = models.CharField(max_length=20)
+    country = models.CharField(max_length=100)
+    countryCode = models.CharField(max_length=10)
+    region = models.CharField(max_length=100)
+    regionName = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    zip = models.CharField(max_length=20)
+    lat = models.FloatField()
+    lon = models.FloatField()
+    timezone = models.CharField(max_length=100)
+    isp = models.CharField(max_length=100)
+    org = models.CharField(max_length=100)
+    as_name = models.CharField(max_length=100)
+    mobile = models.BooleanField(null=True)
+    proxy = models.BooleanField(null=True)
+    hosting = models.BooleanField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.ip

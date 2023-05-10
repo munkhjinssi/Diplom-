@@ -5,19 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
 <link rel='stylesheet' href="{% static 'css/ipgeo.css' %}"> 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@450&display=swap" rel="stylesheet">     
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> 
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> 
 <div class="Name">  
     <h2>IP хаягаар байршил тогтоох</h2>      
 </div>   
 <div class="Body">    
     <form class="d-flex" role="search" method="POST">  
         {% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="{{ data.query}}" aria-label="Search" name="Theip">
+        <input class="form-control me-2" type="search" placeholder="{{ data.query}}" aria-label="Search" name="Theip" id="searchIp">
         <button class="btn btn-primary" type="submit" id="Scan">Шалгах</button>
     </form>   
-    <div class="Datagrid" id="ipgeo"> 
-    <table class="table table-striped" id="example"> 
+</div>  
+    <div class="Datagrid" id="ipgeo">  
+        <input type="text" class="form-control" id="myInput" onkeyup='tableSearch()' placeholder="Хайх"> 
+        <a href="storingip/?ipdata={{data.query}}" class="btn btn-light" id="saveIpgeo"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+          </svg></a>
+    <table class="table table-striped" id="mapTable" data-filter-control="true" data-show-search-clear-button="true"> 
         <thead>
             <th scope="col">Field</th>   
             <th scope="col">info</th> 
@@ -72,17 +76,33 @@
                 <td>{{data.isp}}</td> 
             </tr>  
             <tr>  
-                <td>org</td> 
+                <td>Org</td> 
                 <td>{{data.org}}</td> 
             </tr>  
             <tr>    
-                <td>as дугаар</td> 
+                <td>As нэр</td> 
                 <td>{{data.as}}</td> 
-            </tr>    
+            </tr>      
+            <tr>  
+                <td>Прокси</td>  
+                <td>{{data.proxy}}</td> 
+            </tr>  
+            <tr>  
+                <td>хостинг</td>  
+                <td>{{data.hosting}}</td> 
+            </tr>
+            <tr>  
+                <td>Query</td>  
+                <td>{{data.reverse}}</td> 
+            </tr> 
+            <tr>  
+                <td><b>Шалгалт хийсэн хугацаа</b></td>  
+                <td>{{created_at}}</td> 
+            </tr>
         </tbody>  
     </table>  
   </div>  
-  <div style="width:100%;height:400px;position:absolute;margin-top:5%;box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);">
+  <div style="width:60%;height:400px;position:absolute;margin-top:64%;left:33%;box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);">
     {{ map | safe }} 
   </div>  
 </div>       
@@ -91,9 +111,28 @@
     <h3>@copyright 2023 Munkhjin's thesis</h3> 
 </div>   
 <script> 
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
+    function tableSearch() {
+        let input, filter, table, tr, td, txtValue;
+
+        //Intialising Variables
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("mapTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (let i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+    }
 </script> 
 
   

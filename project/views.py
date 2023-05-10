@@ -15,9 +15,11 @@ from .models import (
     Host,
     OperativeSystemMatch,
     OperativeSystemClass,
-    Port,
+    Port, 
+    Whois, 
     PortService,
-    ScannerHistory
+    ScannerHistory, 
+    IPData
 )
 
 from django.urls import reverse_lazy, reverse, resolve
@@ -30,7 +32,7 @@ from django.db.models import F
 import json, whois  
 
 @login_required(login_url='login') 
-def home(request):
+def home(request):   
   return render(request, 'Dashboard.html')  
 
 def register(request):   
@@ -284,6 +286,81 @@ def Domain(request):
         return render(request, 'domain.html', context)
     else:
         return render(request, 'domain.html')
+  
+def Store(request):     
+    domain = request.GET.get('domain').strip()
+    domain_info = whois.whois(domain)
 
+    domain_obj = Whois( 
+    domain_name = domain,  
+    registrar = domain_info.get('registar'), 
+    whois_server = domain_info.get('whois_server'), 
+    referral_url = domain_info.get('referral_url'),  
+    name_server = domain_info.get('name_servers'),  
+    status = domain_info.get('status'), 
+    emails = domain_info.get('emails'), 
+    dnssec = domain_info.get('dnssec'), 
+    name = domain_info.get('name'), 
+    org = domain_info.get('org'), 
+    address = domain_info.get('address'), 
+    city = domain_info.get('city'), 
+    state = domain_info.get('state'), 
+    registrant_postal_code = domain_info.get('registrant_postal_code'),  
+    country = domain_info.get('country'), 
+    created_date = domain_info.get('created_date'),   
+    expiration_date = domain_info.get('expiration_date'),   
+    updated_date =domain_info.get('updated_date')
+    ) 
+    domain_obj.save()    
+
+    return redirect("stored")
+
+
+def StoreIPData(request):  
+    ipAddr = request.GET.get('ipdata').strip() 
+    ipAddr_info = requests.get('http://ip-api.com/json/'+ipAddr) 
+    location_datas = ipAddr_info.text 
+    location_data = json.loads(location_datas) 
+
+    ip_obj = IPData( 
+        ip = location_data['query'], 
+        status = location_data['status'], 
+        country = location_data['country'], 
+        countryCode = location_data['countryCode'], 
+        region = location_data['region'], 
+        regionName = location_data['regionName'], 
+        city = location_data['city'], 
+        zip = location_data['zip'], 
+        lat = location_data['lat'], 
+        lon = location_data['lon'], 
+        timezone = location_data['timezone'], 
+        isp = location_data['isp'], 
+        org = location_data['org'], 
+        as_name = location_data['as'],     
+    ) 
+    ip_obj.save()  
+
+    return redirect("stored") 
+
+def retrieve(request): 
+    my_obj = Whois.objects.all()  
+    my_ip_obj = IPData.objects.all()
+    context = { 
+        'my_obj': my_obj, 
+        'my_ip_obj': my_ip_obj
+    } 
+    return render(request, 'stored.html', context)  
+
+def delete_history(request): 
+    deleting_content = request.GET.get('content')  
+    content = Whois.objects.get(id=deleting_content)
+    content.delete() 
+    return redirect("stored")
+
+
+    
+
+
+    
  
 

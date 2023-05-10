@@ -14,35 +14,58 @@
     left:33%; 
     width: 60%; 
     height: auto; 
-    background-color: rgb(242, 238, 247); 
-    border-radius: 5px; 
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);  
+    border-radius: 5px;     
+    font-family: 'Montserrat', sans-serif;
 } 
 .Body form{ 
    margin-top: 5%; 
    margin-left:15%; 
    margin-right: 15%;
-} 
-.Body input{ 
+}  
+#searchIp{ 
     border-radius:20px; 
-    font-family: 'Montserrat', sans-serif;
-} 
+    font-family: 'Montserrat', sans-serif; 
+    border-color: blueviolet;
+}  
+#myInput{ 
+  border-radius: 4px; 
+  height:35px;  
+  width:300px; 
+}  
+#saveIpgeo{   
+  position: absolute;
+  margin-left:310px;  
+  top:30px; 
+  height: 35px;  
+}  
+.Datagrid{  
+  position:absolute;
+  width:55%; 
+  left:35%;  
+  top:80%; 
+  padding:2em; 
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24); 
+  border-radius: 4px; 
+  font-family: 'Montserrat', sans-serif;   
+  background-color: rgb(242, 238, 247);
+}
+
+th{ 
+  text-transform: uppercase; 
+  color:blueviolet;  
+  font-weight: bold;
+
+}
 .Body .btn{ 
     color: #fff; 
-    background-color: blueviolet;
+    background-color: blueviolet;  
 } 
-.Datagrid{   
-    margin-top:5%; 
-    margin-left:15%; 
-    margin-right:15%;  
-    margin-bottom:5%;  
-    font-family: 'Montserrat', sans-serif;   
-} 
+ 
 .footer{ 
   height: 90px;  
   width:90%; 
   position: absolute; 
-  top:2300px;   
+  top:2500px;   
   background-color:#fff;  
   border-top: 1px solid #9c9c9c; 
   left:5%; 

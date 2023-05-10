@@ -1,0 +1,248 @@
+{% include 'home.html' %}    
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@450&display=swap" rel="stylesheet">  
+<style>  
+    .accordion{  
+        width:800px;  
+    } 
+    .Stored{ 
+        position:absolute; 
+        top:73%; 
+        left:33%;  
+        font-family: 'Montserrat', sans-serif;   
+        z-index:-1; 
+    } 
+    h3{ 
+        position:absolute; 
+        left:33%; 
+        top:56%;   
+        font-family: 'Montserrat', sans-serif; 
+        font-weight:300; 
+    }  
+    .DomainHistory{ 
+      position:absolute; 
+      left:33%; 
+      margin-top:8%;
+      font-family: 'Montserrat', sans-serif; 
+      font-weight:300; 
+      color:blueviolet; 
+    } 
+    .IpgeoHIstory{ 
+      margin-top:50px; 
+      align-item:left;   
+      font-family: 'Montserrat', sans-serif;  
+      color:blueviolet; 
+    } 
+    .accordion-button {
+      position: relative;
+      padding-right: 2.5rem; /* Adjust the value based on your icon size */
+    }
+    #delete-icon {
+      position: absolute;
+      top: 50%;
+      right: 5rem; /* Adjust the value based on the desired distance from the right */
+      transform: translateY(-50%); 
+      color:red; 
+    } 
+</style>  
+<h3>Хадгалсан шалгалтын түүхүүд</h3>  
+<h5 class="DomainHistory">Домэйн хаягын шалгалтын түүх</h5> 
+<div class="Stored">   
+{% for item in my_obj %} 
+<div class="accordion"> 
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ item.id }}">
+        {{item.id}}. {{ item.domain_name }}    
+        <a id="delete-icon" class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#DeleteModal"> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+          </svg>
+        </a>   
+      </button> 
+    </h2>
+    <div id="collapse{{ item.id }}" class="accordion-collapse collapse"> 
+      <div class="accordion-body"> 
+        <table class="table table-borderless">    
+          <tr>   
+            <td><b>Registrar</b><td>  
+            <td>{{item.registrar}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>whois server</b><td>  
+            <td>{{item.whois_server}}</td> 
+          </tr>    
+          <tr>   
+            <td><b>referral_url</b><td>  
+            <td>{{item.referral_url}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>name_server</b><td>  
+            <td>{{item.name_server}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>status</b><td>  
+            <td>{{item.status}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>emials</b><td>  
+            <td>{{item.emails}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>dnssec</b><td>  
+            <td>{{item.dnssec}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>name</b><td>  
+            <td>{{item.name}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>org</b><td>  
+            <td>{{item.org}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>address</b><td>  
+            <td>{{item.address}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>city</b><td>  
+            <td>{{item.city}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>state</b><td>  
+            <td>{{item.state}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>registrant_postal_code</b><td>  
+            <td>{{item.registrant_postal_code}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>country</b><td>  
+            <td>{{item.country}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>created_at</b><td>  
+            <td>{{item.created_at}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>expiration date</b><td>  
+            <td>{{item.expiration_date}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>updated date</b><td>  
+            <td>{{item.updated_date}}</td> 
+          </tr>
+        </table>  
+      </div>
+    </div>
+  </div> 
+</div> 
+{% endfor %} 
+<h5 class="IpgeoHistory">IP хаягаар бүсийн мэдээлэл тогтоох шалгалтын түүх</h5>     
+{% for value in my_ip_obj %} 
+<div class="accordion"> 
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ value.id }}">
+        {{value.id}}. {{ value.ip }}  
+      </button>
+    </h2>
+    <div id="collapse{{ value.id }}" class="accordion-collapse collapse"> 
+      <div class="accordion-body"> 
+        <table class="table table-borderless">    
+          <tr>   
+            <td><b>Status</b><td>  
+            <td>{{value.status}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>country</b><td>  
+            <td>{{value.country}}</td> 
+          </tr>    
+          <tr>   
+            <td><b>country code</b><td>  
+            <td>{{value.countryCode}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>region</b><td>  
+            <td>{{value.region}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>region name</b><td>  
+            <td>{{value.regionName}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>city</b><td>  
+            <td>{{value.city}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>zip</b><td>  
+            <td>{{value.zip}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>lat</b><td>  
+            <td>{{value.lat}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>lon</b><td>  
+            <td>{{value.lon}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>timezone</b><td>  
+            <td>{{value.timezone}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>ISP</b><td>  
+            <td>{{value.isp}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>ORG</b><td>  
+            <td>{{value.org}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>As name</b><td>  
+            <td>{{value.as_name}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>reverse</b><td>  
+            <td>{{value.reverse}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>mobile</b><td>  
+            <td>{{value.mobile}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>Proxy</b><td>  
+            <td>{{value.proxy}}</td> 
+          </tr> 
+          <tr>   
+            <td><b>hosting</b><td>  
+            <td>{{value.hosting}}</td> 
+          </tr>
+        </table>  
+      </div>
+    </div>
+  </div> 
+</div>  
+{% endfor %}  
+<div style="height:100px"></div> 
+</div>   
+<!-- Modal -->    
+<!-- 
+<div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="DeleteModalLabel">Анхааруулга!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Та {{item.id}} шалгалтыг устгахыг зөвшөөрч байна уу? 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="delete/?content={{item.id}}" type="button" class="btn btn-primary">Зөвшөөрөх</a>
+      </div>
+    </div>  
+  </div>
+</div> 
+-->

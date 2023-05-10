@@ -47,17 +47,18 @@ form .btn:active {
     height: 60px;
     background-color: #ffffff;
     border-bottom: 1px solid #9c9c9c;
-    z-index: 2;
+    z-index: 3;
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 100%; 
+    font-family: 'Montserrat', sans-serif;
 }
 
 nav form {
     position: absolute;
     right: 30%;
     font-family: 'Montserrat', sans-serif;
-    margin-top: 5px;
+    margin-top: 5px; 
 }
 
 nav .icons {
@@ -226,6 +227,5 @@ nav .icons {
     100%{
       background-position-x: -1000px; 
     }
-  }
-  
+  } 
   
