@@ -22,12 +22,11 @@ class ScannerForm(forms.Form):
     FULL = 'FS'
     type = forms.ChoiceField(  
         choices = (
-            (QUICK, "Бүрэн шалгалт"),
-            (FULL, "Хурдан шалгалт")
+            (QUICK, ""),
+            (FULL, "")
         ),
         widget = forms.RadioSelect(attrs={'class': 'form-control my-type'}),
-        initial = 'QS', 
-        label='Шалгалтын төрөл'
+        initial = 'FS', 
     ) 
 
     

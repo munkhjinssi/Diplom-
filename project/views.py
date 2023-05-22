@@ -282,11 +282,11 @@ class PortListView(ListView):
 
         return render(request, self.template_name, context)  
  
-def delete(request, id):   
-    deleting_model = ScannerHistory.objects.get(id=id)
-    if request.method == 'POST':       
-       deleting_model.delete()
-    return redirect(reverse('scanner_type', args=[id]))  
+def deleteScan(request):    
+    deleting_scan = request.GET.get('scanner_delete')
+    deleting_model = ScannerHistory.objects.get(id=deleting_scan)      
+    deleting_model.delete()
+    return redirect(reverse("scanner_type")) 
 
  
 def Domain(request):
@@ -366,15 +366,15 @@ def retrieve(request):
     } 
     return render(request, 'stored.html', context)  
 
-def delete_history(request): 
+def delete_history(request):   
+    deleting_domain = request.GET.get('domain_delete')  
+    content = Whois.objects.get(id = deleting_domain)
     if request.GET.get('ip_delete'):  
         deleting_ip = request.GET.get('ip_delete') 
         content = IPData.objects.get(id=deleting_ip) 
-    else: 
-        deleting_domain = request.GET.get('domain_delete')  
-        content = Whois.objects.get(id = deleting_domain) 
     content.delete() 
-    return redirect("stored")
+    return redirect("stored")  
+
 
 def PDF_ip(request):  
     ip_id = request.GET.get('ipAddr').strip() 

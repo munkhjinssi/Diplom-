@@ -26,7 +26,8 @@
         margin-top:2%; 
     } 
     .form-check{ 
-        margin:5px 0;   
+        margin:5px 0;  
+        display:none;  
     }   
 </style> 
 <body> 
@@ -42,10 +43,7 @@
     </form>
 </p>
 <p>
-    <a href="{% url 'scanner_type' 'QS' %}">Бүрэн шалгалтын хариуг харах</a>
-</p>
-<p>
-    <a href="{% url 'scanner_type' 'FS' %}">Хурдан шалгалтын хариуг харах</a>
+    <a href="{% url 'scanner_type' 'FS' %}">шалгалтын хариуг харах</a>
 </p> 
 </div>   
 <!--https://stackoverflow.com/questions/1960240/jquery-ajax-submit-form-->

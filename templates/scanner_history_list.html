@@ -44,7 +44,7 @@
               />
             </svg>
           </button>
-          <form action="{% url 'delete' scanner.id%}" method="post">
+          <form action="delete/?scanner_delete={{scanner.id}}" method="post">
             {% csrf_token %}
             <button
               style="

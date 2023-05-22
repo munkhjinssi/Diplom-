@@ -18,8 +18,8 @@
 
   <p><strong>Зорилтот хост: </strong> {{ scanner_history.target }}</p>
   <p>
-    <strong>Шалгалтыг эхлүүлсэн хугацаа: </strong> {{ scanner_history.created_on
-    }}
+    <strong>Шалгалтыг эхлүүлсэн хугацаа: </strong> {{
+    scanner_history.created_on}}
   </p>
   <table class="table">
     <thead>
@@ -28,7 +28,6 @@
         <th scope="col">IP</th>
         <th scope="col">Mac address</th>
         {% if scanner_history.type == 'FS' %}
-        <th scope="col">OS matches</th>
         <th scope="col">ports</th>
         {% endif %}
       </tr>
@@ -40,14 +39,6 @@
         <td>{{ host.IP }}</td>
         <td>{{ host.mac_address }}</td>
         {% if scanner_history.type == 'FS' %}
-        <td>
-          <a
-            href="{% url 'os_matches_list' scanner_history.id host.id %}"
-            class="btn"
-            id="btn-back"
-            >View os matches</a
-          >
-        </td>
         <td>
           <a
             href="{% url 'host_ports_list' scanner_history.id host.id %}"
