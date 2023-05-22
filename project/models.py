@@ -1,4 +1,5 @@
-from django.db import models  
+from django.db import models   
+
  
 class Host(models.Model):
 
@@ -256,4 +257,14 @@ class IPData(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.ip
+        return self.ip 
+    
+class IPcreated(models.Model):  
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date and time when the ip geo was created"
+    )
+
+
+
+    

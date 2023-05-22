@@ -1,0 +1,64 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}" />  
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous"> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<div class="Top">   
+    <nav class="navbar">   
+     <div class="container-fluid">    
+       <ul>    
+          <li><a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="logo" class="logo"></a></li>   
+          <li><a href="{% url 'stored' %}">Хадгалсан түүх</a></li>     
+       </ul>            
+       <div class="icons">   
+         <button class="btn btn-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16"> 
+             <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+            </svg> 
+         </button> 
+         <div class="btn-group dropstart">
+           <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+               <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+              </svg>
+           </button>
+           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+             <a class="dropdown-item" href="{% url 'home' %}">Тухай?</a> 
+             <div class="dropdown-divider"></div>
+             <a class="dropdown-item" href="{% url 'logout' %}">Гарах</a>
+           </div>     
+       </div> 
+    </div>            
+  </nav>   
+</div>
+<div class="responsive-container-block bigContainer">
+  <div class="responsive-container-block Container bottomContainer">
+    <div class="ultimateImg">
+      <img
+        class="mainImg"
+        src="{% static 'img/about.png' %}"
+      />
+      <div class="purpleBox">
+        <p class="purpleText">
+            Энэхүү хэрэгсэл интернэт сүлжээнд холбогдсон хостуудын талаарх мэдээллийг танд хурдан шуурхай цуглуулж өгнө
+        </p>
+        <img
+          class="stars"
+          src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/mp5.svg"
+        />
+      </div>
+    </div>
+    <div class="allText bottomText">
+      <p class="text-blk headingText">Системийн тухай</p>
+      <p class="text-blk subHeadingText">
+        Зорилтот машины талаар мэдээлэл цуглуулах хэрэгсэл
+      </p>
+      <p class="text-blk description">
+        Мэдээлэл цуглуулах нь "fingerprinting" эсвэл "reconnaissance" гэж нэрлэгддэг бө
+        гөөд ёс зүйт хакерууд болон аюулгүй байдлын мэргэжилтнүүдийн аль аль нь ашиглах боломжтой 
+        аливаа зорилтот машины талаар өгөгдөл цуглуулах, аюулгүй байдлын зураглалыг
+        тодорхойлох эхний алхам юм.
+      </p>
+      <a href="{% url 'domain' %}" class="explore"> Эхлэх </a>
+    </div>
+  </div>
+</div>

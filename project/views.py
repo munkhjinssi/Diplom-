@@ -19,7 +19,8 @@ from .models import (
     Whois, 
     PortService,
     ScannerHistory, 
-    IPData
+    IPData, 
+    IPcreated
 )
 
 from django.urls import reverse_lazy, reverse, resolve
@@ -29,11 +30,20 @@ from .scanners import *
 
 from django.db.models import F
 
-import json, whois  
+import json, whois, io 
+from django.http import FileResponse 
+from reportlab.pdfgen import canvas  
+from reportlab.lib.units import inch 
+from reportlab.lib.pagesizes import letter  
+from reportlab.platypus import Table 
+from reportlab.lib import colors 
+from reportlab.platypus import SimpleDocTemplate
+
 
 @login_required(login_url='login') 
 def home(request):   
-  return render(request, 'Dashboard.html')  
+  return render(request, 'about.html')   
+
 
 def register(request):   
   if request.method =='POST':  
@@ -67,7 +77,6 @@ def Logout(request):
   logout(request) 
   return redirect('login') 
 
-@login_required(login_url='login') 
 def Ipgeo(request):  
     ip = requests.get('https://api.ipify.org?format=json')  
     ip_data = json.loads(ip.text)
@@ -89,8 +98,10 @@ def Ipgeo(request):
         my_map1 = folium.Map(location=myAddress,zoom_start=12) 
         folium.CircleMarker(location=myAddress, radius=50, popup="Yorkshire").add_to(my_map1)
         folium.Marker(myAddress, popup="Yorkshire").add_to(my_map1)  
-    m = my_map1._repr_html_()  
-    return render(request, 'ipgeo.html', {'map': m, 'data' : location_data}) 
+    m = my_map1._repr_html_()    
+    time = IPcreated.objects.create() 
+    return render(request, 'ipgeo.html', {'map': m, 'data' : location_data, 'time' : time}) 
+
 
 class ScannerView(View, NmapScanner, ScapyScanner):
 
@@ -123,7 +134,7 @@ class ScannerView(View, NmapScanner, ScapyScanner):
 
         return HttpResponse(json.dumps(response), content_type="application/json")  
         
-
+ 
 class ScannerHistoryListView(ListView):
 
     model = ScannerHistory
@@ -136,7 +147,8 @@ class ScannerHistoryListView(ListView):
         context = {
             'scanner_history' : scanner_history
         }
-        return render(request, self.template_name, context) 
+        return render(request, self.template_name, context)  
+    
 
 class HostListView(ListView):
 
@@ -155,7 +167,7 @@ class HostListView(ListView):
         } 
         return render(request, self.template_name, context) 
      
-
+ 
 class OperativeSystemMatchListView(ListView):
 
     model = OperativeSystemMatch
@@ -207,6 +219,7 @@ class OperativeSystemMatchListView(ListView):
         }
 
         return render(request, self.template_name, context)
+
 
 
 class PortListView(ListView):
@@ -274,6 +287,7 @@ def delete(request, id):
     if request.method == 'POST':       
        deleting_model.delete()
     return redirect(reverse('scanner_type', args=[id]))  
+
  
 def Domain(request):
     if request.method == 'POST':
@@ -286,7 +300,8 @@ def Domain(request):
         return render(request, 'domain.html', context)
     else:
         return render(request, 'domain.html')
-  
+
+@login_required(login_url='login') 
 def Store(request):     
     domain = request.GET.get('domain').strip()
     domain_info = whois.whois(domain)
@@ -336,11 +351,11 @@ def StoreIPData(request):
         timezone = location_data['timezone'], 
         isp = location_data['isp'], 
         org = location_data['org'], 
-        as_name = location_data['as'],     
+        as_name = location_data['as'],       
     ) 
-    ip_obj.save()  
+    ip_obj.save()    
 
-    return redirect("stored") 
+    return redirect("stored")  
 
 def retrieve(request): 
     my_obj = Whois.objects.all()  
@@ -352,13 +367,171 @@ def retrieve(request):
     return render(request, 'stored.html', context)  
 
 def delete_history(request): 
-    deleting_content = request.GET.get('content')  
-    content = Whois.objects.get(id=deleting_content)
+    if request.GET.get('ip_delete'):  
+        deleting_ip = request.GET.get('ip_delete') 
+        content = IPData.objects.get(id=deleting_ip) 
+    else: 
+        deleting_domain = request.GET.get('domain_delete')  
+        content = Whois.objects.get(id = deleting_domain) 
     content.delete() 
     return redirect("stored")
 
+def PDF_ip(request):  
+    ip_id = request.GET.get('ipAddr').strip() 
 
-    
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="ip-scan-report.pdf"' 
+
+    #variables   
+    image_path = 'static/img/headerIP.png' 
+    result = IPData.objects.filter(id = ip_id)  
+
+    for fields in result: 
+        ip = fields.ip 
+        status = fields.status
+        country = fields.country
+        countryCode = fields.countryCode
+        region = fields.region
+        regionName = fields.regionName
+        city = fields.city
+        zip = fields.zip
+        lat = fields.lat
+        lon = fields.lon
+        timezone = fields.timezone
+        isp = fields.timezone
+        org = fields.org 
+        as_name = fields.as_name
+        created_at = fields.created_at
+
+    # Generate the PDF content using reportlab
+    p = canvas.Canvas(response, pagesize=letter)  
+    p.drawImage(image_path, 30, 8.5 * inch, width=7.5 * inch, height=2.2 * inch ) 
+    p.setFont("Times-Bold", 24)
+    p.drawString(30, 570, 'Ip geolocation')   
+    p.setFont("Helvetica", 14) 
+    p.drawString(30, 545, "ip address:" + ' ' + ip) 
+
+    data = [
+        ['FIELD', 'INFO'],
+        ['ip address:', ip],
+        ['status', status],
+        ['country', country], 
+        ['country code', countryCode], 
+        ['region', region], 
+        ['region name', regionName], 
+        ['city', city], 
+        ['zip', zip], 
+        ['lat', lat],  
+        ['lon', lon], 
+        ['timezone', timezone ], 
+        ['isp', isp], 
+        ['org', org], 
+        ['as name', as_name], 
+    ]
+
+    # Create the table object and specify style settings
+    table = Table(data)
+    table.setStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.blueviolet),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 16),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ])
+
+    # Get the table size and draw the table on the canvas
+    table.wrapOn(p, 4 * inch, 5 * inch)
+    table.drawOn(p, 30, 3.5 * inch) 
+
+    p.showPage()
+    p.save()
+    # Show the result to the user    
+    return response
+     
+def PDF_domain(request): 
+    domain_id = request.GET.get('domain_id').strip() 
+
+    response = HttpResponse(content_type='application/pdf') 
+    response['Content-Disposition'] = 'attachment; filename = "domain-report.pdf"' 
+
+    #variables  
+    image_path = 'static/img/headerDomain.png' 
+    result = Whois.objects.filter(id = domain_id)  
+    padding = 20
+
+    for fields in result:  
+        domain_name = fields.domain_name 
+        registrar = fields.registrar 
+        whois_server = fields.whois_server 
+        referral_url = fields.referral_url 
+        name_server = fields.name_server 
+        status = fields.status  
+        emails = fields.emails 
+        dnssec = fields.dnssec 
+        name = fields.name 
+        org = fields.org 
+        address = fields.address 
+        city = fields.city 
+        state = fields.state 
+        registrant_postal_code = fields.registrant_postal_code
+        country = fields.country 
+        created_date = fields.created_date 
+        expiration_date = fields.expiration_date 
+        updated_date = fields.updated_date  
+
+    #Generating the pdf contenet using the reportlab 
+    p = canvas.Canvas(response, pagesize=letter) 
+    p.drawImage(image_path, 30, 8.5 * inch, width=7.5 * inch, height=2.2 * inch)
+    p.setFont("Times-Bold", 24)  
+    p.drawString(30, 570, 'Domain lookup')
+    p.setFont("Helvetica", 14) 
+    p.drawString(30, 545, "domain address:" + ' ' + domain_name) 
+
+    #Table   
+    p.setFont("Times-Bold", 14) 
+    p.setFillColor(colors.blueviolet)
+    p.drawString(30, 520, "FIELD")  
+    p.setFont("Times-Bold", 14) 
+    p.setFillColor(colors.blueviolet)
+    p.drawString(2 * inch, 520, "INFO" )  
+    p.setFont("Helvetica", 14) 
+    p.setFillColor(colors.black)
+    p.drawString(30, 500, "whois_server") 
+    p.drawString(2 * inch, 500, whois_server ) 
+    p.drawString(30, 480, "dnssec") 
+    p.drawString(2 * inch, 480, dnssec)    
+    p.drawString(30, 460, "name_server")  
+    p.setFont("Helvetica", 9)  
+    p.drawString(2 * inch, 460, name_server)  
+    p.setFont("Helvetica", 14)   
+    p.drawString(30, 440, "name") 
+    p.drawString(2 * inch, 440, name) 
+    p.drawString(30, 420, "org") 
+    p.drawString(2* inch, 420, org) 
+    p.drawString(30, 400, "address") 
+    p.drawString(2 * inch, 400, address) 
+    p.drawString(30, 380, "city") 
+    p.drawString(2* inch, 380, city)  
+    p.drawString(30, 360, "state") 
+    p.drawString(2 * inch, 360, state) 
+    p.drawString(30, 340, "registrant postal code" ) 
+    p.drawString(3 * inch, 340, str(registrant_postal_code)) 
+    p.drawString(30, 320, "country") 
+    p.drawString(2 * inch, 320,  country)   
+    p.drawString(30, 300, "expiration-date")  
+    p.drawString(2 * inch, 300,  str(expiration_date)) 
+    p.drawString(30, 280,  "updated_date") 
+    p.drawString(2 * inch, 280,  str(updated_date))      
+
+    p.showPage() 
+    p.save() 
+
+    return response
+
+
 
 
     

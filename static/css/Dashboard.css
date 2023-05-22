@@ -1,19 +1,33 @@
-.Dashboard h2{ 
-    position: absolute; 
-    top:55.5%;    
-    right:50%;  
-    font-weight: 300; 
-    font-family: 'Montserrat', sans-serif;
-} 
+.Dashboard h2{  
+    font-family: 'Montserrat', sans-serif; 
+    position: absolute;   
+    top:56.5%; 
+    left:33%; 
+    width: 60%; 
+    height: auto; 
+    border-radius: 5px; 
+}  
 #cards{  
     position: absolute; 
     top: 65%; 
     width:55%;  
-    right:12%; 
+    right:12%;  
+    display: none;
 } 
 #cards .col{ 
     width:300px;
 }  
 .card-body .a{  
     background-color: #7456c0;
+} 
+  
+#generalScan{  
+    height:45px;
+
+}
+#form{ 
+    margin-top:5%;  
+    width:60px;  
+    height:45px;  
+    z-index: 1;
 }

@@ -19,8 +19,8 @@ from project import views
  
 app_name = 'diplom'
 urlpatterns = [ 
-    path('admin/', admin.site.urls),      
-    path('home/', views.home, name="home"),  
+    path('admin/', admin.site.urls),     
+    path('home/', views.home, name="home"),    
     path('register/', views.register, name="register"), 
     path('', views.LoginPage, name="login"), 
     path('logout/', views.Logout, name='logout'),  
@@ -37,5 +37,7 @@ urlpatterns = [
     path('storing/', views.Store, name="storing"),   
     path('stored/', views.retrieve, name="stored") , 
     path('ipgeo/storingip/', views.StoreIPData, name="storingip"), 
-    path('stored/delete/', views.delete_history, name="delete-history")
+    path('stored/delete/', views.delete_history, name="delete-history"), 
+    path('stored/downloadIpPDF/', views.PDF_ip, name="downloadIpPDF"), 
+    path('stored/downloadDomainPDF/', views.PDF_domain, name="downloadDomainPDF"),    
 ]

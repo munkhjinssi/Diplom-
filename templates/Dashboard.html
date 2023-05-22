@@ -5,8 +5,14 @@
 <link rel='stylesheet' href="{% static 'css/Dashboard.css' %}"> 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@450&display=swap" rel="stylesheet"> 
 <div class="Dashboard">  
-    <h2>Хяналтын самбар</h2> 
-    <div class="Dashboards">  
+    <h2>Ерөнхий шалгалт</h2>    
+    <form class="d-flex" role="search" id ="form" method="POST">  
+      {% csrf_token %} 
+      <label class="form-label">Хаяг оруулна уу</label>
+      <input class="form-control me-2" type="search"  aria-label="Search" name="generalInput">
+      <button class="btn btn-primary" type="submit" id="generalScan">Шалгах</button>
+    </form> 
+  
      <div class="row row-cols-1 row-cols-md-2 g-4" id="cards">
        <div class="col">
          <div class="card">
@@ -20,4 +26,5 @@
        </div> 
      </div>  
    </div>  
- </div>  
+ </div>   
+</div> 

@@ -16,24 +16,19 @@
     height: auto; 
     border-radius: 5px; 
 }  
-.body form{ 
-    margin-left:15%; 
-    margin-right: 15%; 
-    margin-bottom:2%; 
- } 
- .body input{ 
-     border-radius:20px; 
-     font-family: 'Montserrat', sans-serif; 
-     border-color: blueviolet;
- } 
- .body .btn{ 
-     color: #fff; 
-     background-color: blueviolet;
- } 
+#domainSearch{  
+    position: absolute; 
+    top:200px;    
+    font-family: 'Montserrat', sans-serif; 
+    z-index: 10;   
+    width: 40%;  
+    height: 45px;  
+    left:30%;
+ }  
 .tabless{ 
     padding:2em;   
     position: absolute;
-    top:70%;  
+    top:63%;  
     left:33%;  
     width:60%; 
 }  
