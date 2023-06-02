@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout   
 import json, requests, geocoder, folium  
 from django.http import HttpResponse
-from django.http.response import JsonResponse
 
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 
@@ -23,7 +22,7 @@ from .models import (
     IPcreated
 )
 
-from django.urls import reverse_lazy, reverse, resolve
+from django.urls import reverse_lazy, reverse
 from django.views import View
 
 from .scanners import * 
@@ -31,13 +30,12 @@ from .scanners import *
 from django.db.models import F
 
 import json, whois, io 
-from django.http import FileResponse 
 from reportlab.pdfgen import canvas  
 from reportlab.lib.units import inch 
 from reportlab.lib.pagesizes import letter  
 from reportlab.platypus import Table 
 from reportlab.lib import colors 
-from reportlab.platypus import SimpleDocTemplate
+from datetime import date 
 
 
 @login_required(login_url='login') 
@@ -286,7 +284,7 @@ def deleteScan(request):
     deleting_scan = request.GET.get('scanner_delete')
     deleting_model = ScannerHistory.objects.get(id=deleting_scan)      
     deleting_model.delete()
-    return redirect(reverse("scanner_type")) 
+    return redirect(reverse("scanner_type", args=FS)) 
 
  
 def Domain(request):
@@ -322,7 +320,7 @@ def Store(request):
     state = domain_info.get('state'), 
     registrant_postal_code = domain_info.get('registrant_postal_code'),  
     country = domain_info.get('country'), 
-    created_date = domain_info.get('created_date'),   
+    created_date = domain_info.get('creation_date'),   
     expiration_date = domain_info.get('expiration_date'),   
     updated_date =domain_info.get('updated_date')
     ) 
@@ -376,7 +374,7 @@ def delete_history(request):
     return redirect("stored")  
 
 
-def PDF_ip(request):  
+def PDF_ip(request):   
     ip_id = request.GET.get('ipAddr').strip() 
 
     response = HttpResponse(content_type='application/pdf')
@@ -384,7 +382,8 @@ def PDF_ip(request):
 
     #variables   
     image_path = 'static/img/headerIP.png' 
-    result = IPData.objects.filter(id = ip_id)  
+    result = IPData.objects.filter(id = ip_id)   
+    horizontal_color = (0.5, 0.5, 0.5)
 
     for fields in result: 
         ip = fields.ip 
@@ -405,68 +404,54 @@ def PDF_ip(request):
 
     # Generate the PDF content using reportlab
     p = canvas.Canvas(response, pagesize=letter)  
-    p.drawImage(image_path, 30, 8.5 * inch, width=7.5 * inch, height=2.2 * inch ) 
-    p.setFont("Times-Bold", 24)
-    p.drawString(30, 570, 'Ip geolocation')   
-    p.setFont("Helvetica", 14) 
-    p.drawString(30, 545, "ip address:" + ' ' + ip) 
+    p.drawImage(image_path, 40, 8.5 * inch, width=7.5 * inch, height=2.2 * inch )   
+    p.setFont("Helvetica-Bold", 14) 
+    p.drawString(40, 560, "Geolocation information of" + ' ' + ip)  
+    p.setStrokeColorRGB(*horizontal_color)
+    p.line(40, 545, 8 * inch, 545)
+ 
+    #Field   
+    p.setFont("Helvetica", 12) 
+    p.drawString(40, 520, "Ip address" + "             " + ip) 
+    p.drawString(40, 500, "Status" + "                   " + status) 
+    p.drawString(40, 480, "Country" + "                 " + country) 
+    p.drawString(40, 460, "Country code" + "        " + countryCode) 
+    p.drawString(40, 440, "Region" + "                  " + region) 
+    p.drawString(40, 420, "Region name" + "        " + regionName) 
+    p.drawString(40, 400, "City" + "                       " + city) 
+    p.drawString(40, 380, "Zip" + "                        " + str(zip)) 
+    p.drawString(40, 360, "latitude" + "                 " + str(lat)) 
+    p.drawString(40, 340, "Longitude" + "             " + str(lon)) 
+    p.drawString(40, 320, "Timezone" + "             " + timezone) 
+    p.drawString(40, 300, "Isp" + "                        " + isp) 
+    p.drawString(40, 280, "Organization" + "        " + org) 
+    p.drawString(40, 260, "AS name" + "              " + str(as_name))  
 
-    data = [
-        ['FIELD', 'INFO'],
-        ['ip address:', ip],
-        ['status', status],
-        ['country', country], 
-        ['country code', countryCode], 
-        ['region', region], 
-        ['region name', regionName], 
-        ['city', city], 
-        ['zip', zip], 
-        ['lat', lat],  
-        ['lon', lon], 
-        ['timezone', timezone ], 
-        ['isp', isp], 
-        ['org', org], 
-        ['as name', as_name], 
-    ]
 
-    # Create the table object and specify style settings
-    table = Table(data)
-    table.setStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.blueviolet),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 16),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.white),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-    ])
-
-    # Get the table size and draw the table on the canvas
-    table.wrapOn(p, 4 * inch, 5 * inch)
-    table.drawOn(p, 30, 3.5 * inch) 
+    #Date 
+    current_date = date.today().strftime("%B %d, %Y")  
+    p.setFont("Helvetica", 12) 
+    p.drawString(3 * inch,  30,  "PDF created on: {}".format(current_date)) 
 
     p.showPage()
     p.save()
     # Show the result to the user    
     return response
      
-def PDF_domain(request): 
+def PDF_domain(request):  
     domain_id = request.GET.get('domain_id').strip() 
-
+    
     response = HttpResponse(content_type='application/pdf') 
     response['Content-Disposition'] = 'attachment; filename = "domain-report.pdf"' 
 
-    #variables  
+    #variables   
     image_path = 'static/img/headerDomain.png' 
     result = Whois.objects.filter(id = domain_id)  
-    padding = 20
-
+    horizontal_color = (0.5, 0.5, 0.5)  
+   
     for fields in result:  
         domain_name = fields.domain_name 
-        registrar = fields.registrar 
         whois_server = fields.whois_server 
-        referral_url = fields.referral_url 
         name_server = fields.name_server 
         status = fields.status  
         emails = fields.emails 
@@ -480,53 +465,77 @@ def PDF_domain(request):
         country = fields.country 
         created_date = fields.created_date 
         expiration_date = fields.expiration_date 
-        updated_date = fields.updated_date  
+        updated_date = fields.updated_date   
+
+    
 
     #Generating the pdf contenet using the reportlab 
     p = canvas.Canvas(response, pagesize=letter) 
-    p.drawImage(image_path, 30, 8.5 * inch, width=7.5 * inch, height=2.2 * inch)
-    p.setFont("Times-Bold", 24)  
-    p.drawString(30, 570, 'Domain lookup')
-    p.setFont("Helvetica", 14) 
-    p.drawString(30, 545, "domain address:" + ' ' + domain_name) 
+    p.drawImage(image_path, 40, 8.5 * inch, width=7.5 * inch, height=2.2 * inch)
+    p.setFont("Helvetica-Bold", 14) 
+    p.drawString(40, 560, "Whois Record for" + ' ' + domain_name)   
+    p.setStrokeColorRGB(*horizontal_color)
+    p.line(40, 545, 8 * inch, 545)
 
-    #Table   
-    p.setFont("Times-Bold", 14) 
-    p.setFillColor(colors.blueviolet)
-    p.drawString(30, 520, "FIELD")  
-    p.setFont("Times-Bold", 14) 
-    p.setFillColor(colors.blueviolet)
-    p.drawString(2 * inch, 520, "INFO" )  
-    p.setFont("Helvetica", 14) 
-    p.setFillColor(colors.black)
-    p.drawString(30, 500, "whois_server") 
-    p.drawString(2 * inch, 500, whois_server ) 
-    p.drawString(30, 480, "dnssec") 
-    p.drawString(2 * inch, 480, dnssec)    
-    p.drawString(30, 460, "name_server")  
-    p.setFont("Helvetica", 9)  
-    p.drawString(2 * inch, 460, name_server)  
-    p.setFont("Helvetica", 14)   
-    p.drawString(30, 440, "name") 
-    p.drawString(2 * inch, 440, name) 
-    p.drawString(30, 420, "org") 
-    p.drawString(2* inch, 420, org) 
-    p.drawString(30, 400, "address") 
-    p.drawString(2 * inch, 400, address) 
-    p.drawString(30, 380, "city") 
-    p.drawString(2* inch, 380, city)  
-    p.drawString(30, 360, "state") 
-    p.drawString(2 * inch, 360, state) 
-    p.drawString(30, 340, "registrant postal code" ) 
-    p.drawString(3 * inch, 340, str(registrant_postal_code)) 
-    p.drawString(30, 320, "country") 
-    p.drawString(2 * inch, 320,  country)   
-    p.drawString(30, 300, "expiration-date")  
-    p.drawString(2 * inch, 300,  str(expiration_date)) 
-    p.drawString(30, 280,  "updated_date") 
-    p.drawString(2 * inch, 280,  str(updated_date))      
+    #Table     
+    data = [
+        ['FIELD', 'INFO'],
+        ['domain name:', domain_name],
+        ['whois server', whois_server],
+        ['dnssec', dnssec], 
+        ['name', name], 
+        ['org', org], 
+        ['address', address], 
+        ['city', city], 
+        ['state', state], 
+        ['registrant_postal_code', registrant_postal_code],  
+        ['country', country], 
+        ['expiration date', expiration_date ], 
+        ['updated date', updated_date],   
+    ]
 
-    p.showPage() 
+    # Create the table object and specify style settings
+    table = Table(data)
+    table.setStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.blueviolet),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 16),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.white), 
+        ("PADDING", (0, 0), (-1, -1), 10),
+        ('GRID', (0, 0), (-1, -1), 1, colors.blueviolet),
+    ])
+
+    # Get the table size and draw the table on the canvas
+    table.wrapOn(p, 4 * inch, 4.5 * inch)
+    table.drawOn(p, 2.5 * inch, 3.9 * inch)     
+
+    #Email
+    p.setStrokeColorRGB(*horizontal_color)
+    p.line(40, 3.5 * inch, 8 * inch, 3.5 * inch)  
+    p.setFont("Helvetica-Bold", 12) 
+    p.drawString(40, 3 * inch, "Email:") 
+    p.setFont("Helvetica", 12) 
+    p.drawString(40, 2.7 * inch, emails)  
+
+    #Name server    
+    p.setStrokeColorRGB(*horizontal_color)
+    p.line(40, 2.4 * inch, 8 * inch, 2.4 * inch)  
+    p.setFont("Helvetica-Bold", 12)  
+    p.drawString(40, 1.9 * inch, "Name server:")  
+    p.setFont("Helvetica", 10)   
+    p.drawString(40, 1.6* inch, name_server)  
+    p.setStrokeColorRGB(*horizontal_color)
+    p.line(40, 1.3 * inch, 8 * inch, 1.3 * inch) 
+
+    #Date 
+    current_date = date.today().strftime("%B %d, %Y")  
+    p.setFont("Helvetica", 12) 
+    p.drawString(3 * inch,  30,  "PDF created on: {}".format(current_date)) 
+
+    p.showPage()    
     p.save() 
 
     return response
